@@ -24,7 +24,7 @@ jobs:
       - name: Verify architecture
         run: |
           file build/bin/openwarcraft3 build/lib/*.dylib
-          lipo -verify_arch arm64 build/bin/openwarcraft3
+          lipo build/bin/openwarcraft3 -verify_arch arm64
 
       - name: Create archive
         run: |
