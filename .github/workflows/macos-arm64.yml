@@ -1,0 +1,43 @@
+name: macOS arm64 build
+
+# Standalone Apple silicon build check. Produces the same archive layout as the
+# release job, without the private EOS SDK, as a downloadable workflow artifact.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["claude/intelligent-bell-dxtvgu"]
+
+jobs:
+  build:
+    runs-on: macos-15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: brew install sdl2 libjpeg
+
+      - name: Build
+        run: make BUILD=release ARCH=arm64 build
+
+      - name: Verify architecture
+        run: |
+          file build/bin/openwarcraft3 build/lib/*.dylib
+          lipo -verify_arch arm64 build/bin/openwarcraft3
+
+      - name: Create archive
+        run: |
+          # Preserve the executable's ../lib and ../share lookup paths.
+          mkdir -p release/bin release/lib
+          cp build/bin/openwarcraft3 release/bin/
+          cp -r build/lib/. release/lib/
+          cp -r build/share release/
+          tar -czf openwarcraft3-macos-arm64.tar.gz -C release .
+
+      - name: Upload archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: openwarcraft3-macos-arm64
+          path: openwarcraft3-macos-arm64.tar.gz
+          if-no-files-found: error
