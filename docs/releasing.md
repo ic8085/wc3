@@ -36,13 +36,14 @@ with `isPrerelease=false` and marked latest; preserve that convention unless the
 requested release policy changes.
 
 Publication initially creates a release with no download assets. Completion
-requires every release job to succeed and all five assets to have `uploaded`
+requires every release job to succeed and all six assets to have `uploaded`
 state, nonzero sizes, and SHA-256 digests:
 
 | Asset | Contents |
 | --- | --- |
 | `openwarcraft3-linux-x64.tar.gz` | `bin/`, `lib/`, `share/`, EOS notices; FFmpeg decoder/runtime closure |
 | `openwarcraft3-macos-x64.tar.gz` | Intel executable, modules, share tree and EOS runtime/notices |
+| `openwarcraft3-macos-arm64.tar.gz` | Apple silicon executable, modules, share tree and EOS runtime/notices |
 | `openwarcraft3-windows-x64.zip` | Executable, game modules, MinGW dependency closure, share tree and EOS runtime/notices |
 | `io.github.corepunch.OpenRealm.flatpak` | x86_64 application bundle |
 | `openrealm-flatpak-TAG.zip` | Same Flatpak bundle plus `install.sh` and `uninstall.sh` |

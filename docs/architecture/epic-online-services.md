@@ -145,7 +145,8 @@ replace `EOS_SDK_DEPLOY_KEY`, verify checkout, then remove the old public key.
 
 Unix archives preserve `bin/`, `lib/` and `share/` so the executable's runtime
 lookup paths work after extraction; run `bin/openwarcraft3`. macOS x64 uses an
-Intel runner and explicit `ARCH=x86_64`. Windows packages the EOS DLL beside
+Intel runner and explicit `ARCH=x86_64`; macOS arm64 uses an Apple silicon
+runner, `ARCH=arm64` and the `/opt/homebrew` prefix. Windows packages the EOS DLL beside
 `openwarcraft3.exe` and includes it in dependency validation. Portable archives
 include EOS notices under `licenses/EOS/`.
 
